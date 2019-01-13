@@ -1,0 +1,46 @@
+{% url 'account:logout' as logout_url %}
+{% url 'demo:menu_one' as menu_one_url %}
+{% url 'demo:menu_two' as menu_two_url %}
+{% url 'demo:menu_three' as menu_three_url %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+
+	<div class='container'>
+	  <a class="navbar-brand" href="#">
+	  	{% if brand_name %} {{ brand_name }} {% else %} Test {% endif %}
+	  </a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+				<li class="nav-item {% if request.path == menu_one_url %}active{% endif %}">
+					<a class="nav-link" href="{{ menu_one_url }}">menu_one</a>
+				</li>
+	      <li class="nav-item {% if request.path == menu_two_url %}active{% endif %}">
+					<a class="nav-link" href="{{ menu_two_url }}">menu_two</a>
+	      </li>
+				<li class="nav-item {% if request.path == menu_three_url %}active{% endif %}">
+					<a class="nav-link" href="{{ menu_three_url }}">menu_three</a>
+				</li>
+
+
+	      {% if request.user.is_authenticated %}
+	      <li class="nav-item {% if request.path == '' %}active{% endif %}">
+	        <a class="nav-link" href="{{ logout_url }}">Logout</a>
+	      </li>
+	      {% else %}
+	      <li class="nav-item {% if request.path == '' %}active{% endif %}">
+	        <a class="nav-link" href="#">Login</a>
+	      </li>
+	      <li class="nav-item {% if request.path == '' %}active{% endif %}">
+	        <a class="nav-link" href="#">Register</a>
+	      </li>
+				{% endif %}
+				
+			</ul>
+
+	  </div>
+	</div>
+</nav>
